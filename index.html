@@ -1,65 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Popup Iframe Example</title>
-  <style>
-    #popupModal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0; top: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-    }
-    #popupContent {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      background: #fff;
-      padding: 0;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-      width: 80vw; height: 80vh;
-      display: flex; flex-direction: column;
-    }
-    #popupContent iframe {
-      width: 100%; height: 100%; border: none;
-      flex: 1;
-    }
-    #closeBtn {
-      align-self: flex-end;
-      margin: 8px;
-      cursor: pointer;
-      background: #f44336;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      padding: 4px 12px;
-      font-size: 16px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Popup Iframe Example</title>
+    <style>
+        #styledInput {
+            width: 300px;
+            height: 40px;
+            line-height: 40px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 0 10px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        #submit-btn {
+            width: 160px;
+            height: 40px;
+            line-height: 40px;
+            background: tomato;
+            border-radius: 4px;
+            align-items: center;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
 </head>
+
 <body>
-  <textarea id="myTextarea"></textarea>
-  <div>
-  <button onclick="openPopup()">Open Iframe Popup</button></div>
+    <div id="jsonOutput"></div>
+    <input id="styledInput" placeholder="Enter the url here" />
+    <div id="submit-btn">Open Popup</div>
+    <script src="https://ir.ebaystatic.com/cr/v/c01/eps/eps-popup-sdk.v0.0.9.js"></script>
 
-  <div id="popupModal">
-    <div id="popupContent">
-      <button id="closeBtn" onclick="closePopup()">Close</button>
-      <iframe id="myFrame" src="about:blank" ></iframe>
-    </div>
-  </div>
+    <script>
+        function openPopupWindow(url, popupWidth, popupHeight) {
+            const { top, left, width, height } = getWindowLayout();
+            let _popupWidth = popupWidth;
+            let _popupHeight = popupHeight;
+            if (!_popupWidth || !_popupHeight) {
+                _popupWidth = width;
+                _popupHeight = height;
+            }
+            const _top = (height - _popupHeight) / 2 + top;
+            const _left = (width - _popupWidth) / 2 + left;
+            const sizeParams = `,width=${_popupWidth},height=${_popupHeight}`;
+            const positionParams = `,top=${_top},left=${_left}`;
+            const commonParams = ',location=no,alwaysRaised=yes,dependent=yes,hotkeys=yes,modal=yes';
+            const popup = window.open(url, '_blank', `${commonParams}${sizeParams}${positionParams}`);
+            return popup;
+        }
 
-  <script>
-    function openPopup() {
-      document.getElementById('popupModal').style.display = 'block';
-      const text = document.getElementById("myTextarea").value;
-      document.getElementById('myFrame').src=text;
-    }
-    function closePopup() {
-      document.getElementById('popupModal').style.display = 'none';
-    }
-  </script>
+        const jsonOutputElement = document.getElementById('jsonOutput');
+
+        console.log('script code have loaded')
+        const popupSDK = new EPSPopupSDK({
+            onSuccess: function (data) {
+                const newParagraph = document.createElement('p');
+                newParagraph.textContent = 'Success event triggered:';
+                jsonOutputElement.appendChild(newParagraph)
+                const newParagraph2 = document.createElement('p');
+                newParagraph2.textContent = JSON.stringify(data, null, 2);
+                jsonOutputElement.appendChild(newParagraph2)
+            },
+            onClose: function () {
+                const newParagraph = document.createElement('p');
+                newParagraph.textContent = 'Close event triggered';
+                jsonOutputElement.appendChild(newParagraph)
+            },
+            onError: function (error) {
+                const newParagraph = document.createElement('p');
+                newParagraph.textContent = 'Error event triggered:';
+                jsonOutputElement.appendChild(newParagraph)
+                const newParagraph2 = document.createElement('p');
+                newParagraph2.textContent = JSON.stringify(error, null, 2);
+                jsonOutputElement.appendChild(newParagraph2)
+            },
+        });
+
+        document.getElementById("submit-btn").onclick = function () {
+            jsonOutputElement.innerHTML = ''
+            const userInput = document.getElementById('styledInput').value;
+            const urlRegex = /^(https?:\/\/)?([a-zA-Z0-9.-]+)(:[0-9]+)?(\/.*)?$/;
+            if (!userInput) {
+                popupSDK.open('https://ppcapp.vip.qa.ebay.com/eps/begin');
+            }
+            else if (urlRegex.test(userInput)) {
+                popupSDK.open(userInput);
+            } else {
+                console.error('Invalid URL:', userInput);
+                alert('Please enter the validate URL');
+            }
+            // const newTab = openPopupWindow('https://ppcapp8.stratus.qa.ebay.com/bic/tenant/begin', 800, 600);
+            // if (newTab) {
+            //     newTab.focus();
+            //     const interval = setInterval(() => {
+            //       if (newTab.closed) {
+            //         clearInterval(interval);
+            //       }
+            //     }, 200);
+            // }
+        }
+
+        // document.getElementById("ebay-alert")?.style?.display = "none";
+    </script>
 </body>
+
 </html>
