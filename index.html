@@ -1,136 +1,133 @@
 ```html
 <!DOCTYPE html>
-<html lang="en" class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 min-h-screen">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Add & Subtract Fun Game</title>
-  <script type="application/javascript" defer>
-    (() => {
-      // Wait for DOM loaded
-      document.addEventListener('DOMContentLoaded', () => {
-        const questionEl = document.getElementById('question');
-        const inputEl = document.getElementById('answer');
-        const submitBtn = document.getElementById('submit');
-        const feedbackEl = document.getElementById('feedback');
-        const scoreEl = document.getElementById('score');
-        const newGameBtn = document.getElementById('newGame');
-
-        let score = 0;
-        let total = 0;
-        let currentAnswer = 0;
-
-        function getRandomInt(min, max) {
-          return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
-
-        function generateQuestion() {
-          let num1 = getRandomInt(1, 20);
-          let num2 = getRandomInt(1, 20);
-          let isAddition = Math.random() < 0.5;
-
-          // To avoid negative results in subtraction for 7 year olds
-          if (!isAddition && num2 > num1) [num1, num2] = [num2, num1];
-
-          if (isAddition) {
-            currentAnswer = num1 + num2;
-            questionEl.textContent = `${num1} + ${num2} = ?`;
-          } else {
-            currentAnswer = num1 - num2;
-            questionEl.textContent = `${num1} - ${num2} = ?`;
-          }
-          inputEl.value = '';
-          feedbackEl.textContent = '';
-          inputEl.focus();
-        }
-
-        function updateScore() {
-          scoreEl.textContent = `Score: ${score} / ${total}`;
-        }
-
-        function checkAnswer() {
-          let userAnswer = parseInt(inputEl.value.trim(), 10);
-          if (Number.isNaN(userAnswer)) {
-            feedbackEl.textContent = 'Please enter a valid number!';
-            feedbackEl.classList.remove('text-green-500');
-            feedbackEl.classList.add('text-red-500');
-            return;
-          }
-          total++;
-          if (userAnswer === currentAnswer) {
-            score++;
-            feedbackEl.textContent = 'Correct! 🎉';
-            feedbackEl.classList.remove('text-red-500');
-            feedbackEl.classList.add('text-green-500');
-          } else {
-            feedbackEl.textContent = `Oops! The right answer was ${currentAnswer}.`;
-            feedbackEl.classList.remove('text-green-500');
-            feedbackEl.classList.add('text-red-500');
-          }
-          updateScore();
-          setTimeout(generateQuestion, 1500);
-        }
-
-        function newGame() {
-          score = 0;
-          total = 0;
-          updateScore();
-          feedbackEl.textContent = '';
-          generateQuestion();
-        }
-
-        submitBtn.addEventListener('click', checkAnswer);
-        inputEl.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            checkAnswer();
-          }
-        });
-        newGameBtn.addEventListener('click', newGame);
-
-        newGame();
-      });
-    })();
-  </script>
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fun Math Practice for Kids</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  input::-webkit-inner-spin-button, 
+  input::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+  }
+  input[type=number] {
+    -moz-appearance:textfield;
+  }
+</style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4">
-  <main class="w-full max-w-md bg-white bg-opacity-90 rounded-3xl shadow-lg p-8 flex flex-col space-y-6">
-    <h1 class="text-4xl font-extrabold text-center text-indigo-700 select-none">Add & Subtract Fun!</h1>
-    <section class="bg-indigo-100 rounded-xl p-6 flex flex-col items-center space-y-4">
-      <div id="question" class="text-3xl font-semibold text-indigo-900 select-none"></div>
-      <input
-        id="answer"
-        type="number"
-        inputmode="numeric"
-        autocomplete="off"
-        aria-label="Answer input"
-        class="w-40 p-3 rounded-lg border-2 border-indigo-300 text-center text-xl font-semibold focus:outline-none focus:ring-4 focus:ring-indigo-400 focus:border-indigo-500 transition"
-        placeholder="Your answer"
-      />
-      <button
-        id="submit"
-        class="w-40 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-bold py-3 rounded-lg shadow-md transition"
-        aria-label="Submit your answer"
-      >
-        Check Answer
-      </button>
-      <p id="feedback" aria-live="polite" class="h-8 font-semibold text-lg"></p>
+<body class="bg-gradient-to-b from-purple-300 via-pink-300 to-yellow-200 min-h-screen flex flex-col items-center p-4 font-sans text-gray-800">
+
+  <header class="mb-8 text-center max-w-md">
+    <h1 class="text-4xl font-extrabold mb-2">Math Fun! ➕➖</h1>
+    <p class="text-lg text-purple-900">Practice addition and subtraction with friendly numbers!</p>
+  </header>
+
+  <main class="bg-white bg-opacity-90 rounded-xl shadow-lg p-6 max-w-md w-full">
+    <section id="problem-section" class="mb-6 text-center">
+      <div class="text-5xl font-bold text-purple-700 mb-3 select-none" aria-live="polite" aria-atomic="true" id="problem">
+        4 + 3 =
+      </div>
+      <input aria-label="Your answer" type="number" inputmode="numeric" id="answer" class="w-full rounded-md border-2 border-purple-300 focus:border-purple-600 focus:ring-2 focus:ring-purple-400 text-center text-3xl font-mono p-2" />
     </section>
-    <section class="flex justify-between items-center text-indigo-700 font-semibold">
-      <div id="score" class="text-xl select-none">Score: 0 / 0</div>
-      <button
-        id="newGame"
-        class="bg-pink-500 hover:bg-pink-600 active:bg-pink-700 text-white font-bold py-2 px-5 rounded-lg shadow-md transition"
-        aria-label="Start a new game"
-      >
-        New Game
+
+    <div class="flex justify-between items-center space-x-3">
+      <button id="check-btn" aria-label="Check answer" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-md shadow-md transition focus:outline-none focus:ring-4 focus:ring-purple-300">
+        Check
       </button>
-    </section>
-    <footer class="text-center text-indigo-600 text-sm select-none">
-      Keep practicing & have fun! 🎈
-    </footer>
+      <button id="next-btn" aria-label="Next problem" class="flex-1 bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 rounded-md shadow-md transition focus:outline-none focus:ring-4 focus:ring-pink-300">
+        Next
+      </button>
+    </div>
+
+    <section aria-live="polite" aria-atomic="true" id="feedback" class="mt-6 min-h-[3rem] text-center text-lg font-semibold"></section>
   </main>
+
+  <footer class="mt-auto text-center text-sm text-purple-800 opacity-75 pt-6 pb-3 select-none">
+    &copy; 2024 Math Fun for Kids
+  </footer>
+
+<script>
+  (() => {
+    const problemEl = document.getElementById('problem');
+    const answerInput = document.getElementById('answer');
+    const checkBtn = document.getElementById('check-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const feedbackEl = document.getElementById('feedback');
+
+    let currentProblem = {};
+
+    function randomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function generateProblem() {
+      // Choose addition or subtraction randomly
+      const type = Math.random() < 0.5 ? 'add' : 'sub';
+
+      let a, b;
+      if(type === 'add') {
+        a = randomInt(1, 20);
+        b = randomInt(1, 20);
+      } else {
+        // For subtraction, ensure no negative results for young kids
+        a = randomInt(5, 20);
+        b = randomInt(1, a);
+      }
+
+      currentProblem = { a, b, type };
+      const symbol = type === 'add' ? '+' : '−';
+      problemEl.textContent = `${a} ${symbol} ${b} =`;
+      feedbackEl.textContent = '';
+      answerInput.value = '';
+      answerInput.disabled = false;
+      answerInput.focus();
+    }
+
+    function checkAnswer() {
+      const val = answerInput.value.trim();
+      if (val === '') {
+        feedbackEl.textContent = 'Please enter your answer!';
+        feedbackEl.className = 'mt-6 text-center text-lg font-semibold text-red-600';
+        answerInput.focus();
+        return;
+      }
+
+      const num = Number(val);
+      let correct;
+
+      if(currentProblem.type === 'add') {
+        correct = currentProblem.a + currentProblem.b;
+      } else {
+        correct = currentProblem.a - currentProblem.b;
+      }
+
+      if(num === correct) {
+        feedbackEl.textContent = '🎉 Great job! That’s correct!';
+        feedbackEl.className = 'mt-6 text-center text-lg font-semibold text-green-600';
+      } else {
+        feedbackEl.textContent = `❌ Oops! The right answer is ${correct}. Try another one!`;
+        feedbackEl.className = 'mt-6 text-center text-lg font-semibold text-red-600';
+      }
+      answerInput.disabled = true;
+    }
+
+    checkBtn.addEventListener('click', checkAnswer);
+    nextBtn.addEventListener('click', generateProblem);
+
+    answerInput.addEventListener('keypress', e => {
+      if(e.key === 'Enter') {
+        e.preventDefault();
+        checkAnswer();
+      }
+    });
+
+    // Initialize first problem
+    generateProblem();
+  })();
+</script>
+
 </body>
 </html>
 ```
