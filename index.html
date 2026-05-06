@@ -1,133 +1,76 @@
 ```html
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Fun Math Practice for Kids</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-  input::-webkit-inner-spin-button, 
-  input::-webkit-outer-spin-button { 
-    -webkit-appearance: none; 
-    margin: 0; 
-  }
-  input[type=number] {
-    -moz-appearance:textfield;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spelling Contest for 11 Year Olds</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-b from-purple-300 via-pink-300 to-yellow-200 min-h-screen flex flex-col items-center p-4 font-sans text-gray-800">
-
-  <header class="mb-8 text-center max-w-md">
-    <h1 class="text-4xl font-extrabold mb-2">Math Fun! ➕➖</h1>
-    <p class="text-lg text-purple-900">Practice addition and subtraction with friendly numbers!</p>
+<body class="bg-gradient-to-br from-indigo-50 to-purple-100 min-h-screen flex flex-col">
+  <header class="bg-purple-600 text-white shadow-md">
+    <div class="container mx-auto px-6 py-5 flex justify-between items-center">
+      <h1 class="text-2xl font-extrabold tracking-wide">Spelling Contest</h1>
+      <nav class="space-x-6 text-sm sm:text-base">
+        <a href="#about" class="hover:underline">About</a>
+        <a href="#rules" class="hover:underline">Rules</a>
+        <a href="#practice" class="hover:underline">Practice</a>
+        <a href="#contact" class="hover:underline">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <main class="bg-white bg-opacity-90 rounded-xl shadow-lg p-6 max-w-md w-full">
-    <section id="problem-section" class="mb-6 text-center">
-      <div class="text-5xl font-bold text-purple-700 mb-3 select-none" aria-live="polite" aria-atomic="true" id="problem">
-        4 + 3 =
-      </div>
-      <input aria-label="Your answer" type="number" inputmode="numeric" id="answer" class="w-full rounded-md border-2 border-purple-300 focus:border-purple-600 focus:ring-2 focus:ring-purple-400 text-center text-3xl font-mono p-2" />
+  <main class="flex-grow container mx-auto px-6 py-12">
+    <section id="about" class="mb-16 text-center max-w-3xl mx-auto">
+      <h2 class="text-4xl font-bold text-purple-700 mb-4">Welcome to the 11-Year-Old Spelling Contest!</h2>
+      <p class="text-lg text-gray-700 leading-relaxed">
+        Are you ready to challenge yourself and show off your spelling skills? This contest is designed especially for 11-year-olds who love words and learning new things.
+        Join us for a fun, exciting, and friendly competition!
+      </p>
     </section>
 
-    <div class="flex justify-between items-center space-x-3">
-      <button id="check-btn" aria-label="Check answer" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-md shadow-md transition focus:outline-none focus:ring-4 focus:ring-purple-300">
-        Check
-      </button>
-      <button id="next-btn" aria-label="Next problem" class="flex-1 bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 rounded-md shadow-md transition focus:outline-none focus:ring-4 focus:ring-pink-300">
-        Next
-      </button>
-    </div>
+    <section id="rules" class="mb-16 max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
+      <h3 class="text-3xl font-semibold text-purple-600 mb-6 text-center">Contest Rules</h3>
+      <ul class="list-disc list-inside space-y-3 text-gray-800 text-base sm:text-lg">
+        <li>Participants must be 11 years old at the time of the contest.</li>
+        <li>Contestants will be given words to spell aloud or write down.</li>
+        <li>No electronic devices allowed during the contest.</li>
+        <li>Each round will increase in difficulty.</li>
+        <li>The winner is the last contestant remaining with correct spellings.</li>
+        <li>Have fun and do your best!</li>
+      </ul>
+    </section>
 
-    <section aria-live="polite" aria-atomic="true" id="feedback" class="mt-6 min-h-[3rem] text-center text-lg font-semibold"></section>
+    <section id="practice" class="mb-16 max-w-4xl mx-auto text-center">
+      <h3 class="text-3xl font-semibold text-purple-600 mb-6">Practice Words</h3>
+      <p class="text-gray-700 text-lg mb-6 max-w-xl mx-auto">
+        Practice makes perfect! Here are some words to help you get ready:
+      </p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 max-w-xl mx-auto">
+        <div class="bg-purple-100 text-purple-800 font-semibold rounded-lg p-4 shadow hover:bg-purple-200 cursor-default select-none">Adventure</div>
+        <div class="bg-purple-100 text-purple-800 font-semibold rounded-lg p-4 shadow hover:bg-purple-200 cursor-default select-none">Beautiful</div>
+        <div class="bg-purple-100 text-purple-800 font-semibold rounded-lg p-4 shadow hover:bg-purple-200 cursor-default select-none">Celebrate</div>
+        <div class="bg-purple-100 text-purple-800 font-semibold rounded-lg p-4 shadow hover:bg-purple-200 cursor-default select-none">Discover</div>
+        <div class="bg-purple-100 text-purple-800 font-semibold rounded-lg p-4 shadow hover:bg-purple-200 cursor-default select-none">Exercise</div>
+        <div class="bg-purple-100 text-purple-800 font-semibold rounded-lg p-4 shadow hover:bg-purple-200 cursor-default select-none">Friendship</div>
+      </div>
+    </section>
+
+    <section id="contact" class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8">
+      <h3 class="text-3xl font-semibold text-purple-600 mb-6 text-center">Contact & Questions</h3>
+      <p class="text-gray-700 mb-6 text-center">
+        If you or your parents have any questions, feel free to reach out to us!
+      </p>
+      <div class="text-center text-purple-700 font-medium">
+        <p>Email: <a href="mailto:spellingcontest@example.com" class="underline hover:text-purple-900">spellingcontest@example.com</a></p>
+        <p>Phone: <a href="tel:+1234567890" class="underline hover:text-purple-900">+1 (234) 567-890</a></p>
+      </div>
+    </section>
   </main>
 
-  <footer class="mt-auto text-center text-sm text-purple-800 opacity-75 pt-6 pb-3 select-none">
-    &copy; 2024 Math Fun for Kids
+  <footer class="bg-purple-600 text-white text-center py-6 mt-auto shadow-inner">
+    <p class="text-sm sm:text-base">&copy; 2024 Spelling Contest. All rights reserved.</p>
   </footer>
-
-<script>
-  (() => {
-    const problemEl = document.getElementById('problem');
-    const answerInput = document.getElementById('answer');
-    const checkBtn = document.getElementById('check-btn');
-    const nextBtn = document.getElementById('next-btn');
-    const feedbackEl = document.getElementById('feedback');
-
-    let currentProblem = {};
-
-    function randomInt(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    function generateProblem() {
-      // Choose addition or subtraction randomly
-      const type = Math.random() < 0.5 ? 'add' : 'sub';
-
-      let a, b;
-      if(type === 'add') {
-        a = randomInt(1, 20);
-        b = randomInt(1, 20);
-      } else {
-        // For subtraction, ensure no negative results for young kids
-        a = randomInt(5, 20);
-        b = randomInt(1, a);
-      }
-
-      currentProblem = { a, b, type };
-      const symbol = type === 'add' ? '+' : '−';
-      problemEl.textContent = `${a} ${symbol} ${b} =`;
-      feedbackEl.textContent = '';
-      answerInput.value = '';
-      answerInput.disabled = false;
-      answerInput.focus();
-    }
-
-    function checkAnswer() {
-      const val = answerInput.value.trim();
-      if (val === '') {
-        feedbackEl.textContent = 'Please enter your answer!';
-        feedbackEl.className = 'mt-6 text-center text-lg font-semibold text-red-600';
-        answerInput.focus();
-        return;
-      }
-
-      const num = Number(val);
-      let correct;
-
-      if(currentProblem.type === 'add') {
-        correct = currentProblem.a + currentProblem.b;
-      } else {
-        correct = currentProblem.a - currentProblem.b;
-      }
-
-      if(num === correct) {
-        feedbackEl.textContent = '🎉 Great job! That’s correct!';
-        feedbackEl.className = 'mt-6 text-center text-lg font-semibold text-green-600';
-      } else {
-        feedbackEl.textContent = `❌ Oops! The right answer is ${correct}. Try another one!`;
-        feedbackEl.className = 'mt-6 text-center text-lg font-semibold text-red-600';
-      }
-      answerInput.disabled = true;
-    }
-
-    checkBtn.addEventListener('click', checkAnswer);
-    nextBtn.addEventListener('click', generateProblem);
-
-    answerInput.addEventListener('keypress', e => {
-      if(e.key === 'Enter') {
-        e.preventDefault();
-        checkAnswer();
-      }
-    });
-
-    // Initialize first problem
-    generateProblem();
-  })();
-</script>
-
 </body>
 </html>
 ```
